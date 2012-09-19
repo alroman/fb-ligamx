@@ -1,27 +1,35 @@
 <?php
 
-require_once dirname(__FILE__) . '/../lib/controller.php';
-
 class main_controller extends controller {
     
     public function __construct() {
         parent::__construct();
+        
+        // Load some libraries
         $this->lib('html');
         $this->lib('data');
         $this->lib('team');
+        
+        // We'll need the model
+        $this->model('ligamx');
     }
 
     public function index() {
         
         $data = array(
-            'top_ten' => $this->top_ten(),
-            'results_table' => $this->results_table(),
+            'top_ten' => $this->_top_ten(),
+            'results_table' => $this->_results_table(),
         );
         
         $this->view('main', $data);
     }
     
-    private function top_ten() {
+    /**
+     * Returns a top ten table
+     * 
+     * @return \html_tag object
+     */
+    private function _top_ten() {
         $path = 'teams.txt';
         $data = data_processor::process_file($path, 4);
         
@@ -52,7 +60,12 @@ class main_controller extends controller {
         return $content;
     }
     
-    private function results_table() {
+    /**
+     * Returns a results table 
+     * 
+     * @return \html_tag object
+     */
+    private function _results_table() {
         $path = 'results.txt';
         $data = data_processor::process_file($path, 5);
         

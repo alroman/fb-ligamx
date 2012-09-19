@@ -1,8 +1,11 @@
 <?php
+// DEBUG
 ini_set('display_errors', 'On');
 
-include_once 'lib/router.php';
+// @todo: have a better config
+include_once 'lib/config.php';
 
+// @todo: better router
 router::route()
 
 ?>

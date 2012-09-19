@@ -1,14 +1,14 @@
 <?php
 
+/**
+ * Base controller class
+ */
+
 abstract class controller {
     private $_name;
     
     public function __construct() {
         $this->_name = get_class();
-    }
-    
-    public function invoke($path = 'index') {
-        $this->$path();
     }
     
     /**
@@ -28,6 +28,11 @@ abstract class controller {
         }
     }
     
+    /** 
+     * Load a library file
+     * 
+     * @param type $lib
+     */
     protected function lib($lib) {
         $path = dirname(__FILE__) . '/../lib/';
         $file = $path . $lib . '.php';
@@ -35,12 +40,33 @@ abstract class controller {
         $this->_load($file);
     }
     
+    /**
+     * Load a model
+     * 
+     * @param type $model
+     * @param type $alias
+     */
+    protected function model($model, $alias = null) {
+        $path = dirname(__FILE__) . '/../model/';
+        $file = $path . $model . '.php';
+        
+        $this->_load($file);
+        $class = $model . '_model';
+        
+        $obj = empty($alias) ? $model : $alias;
+        
+        $this->$obj = new $class;
+    }
+
     protected function _load($file) {
         if(file_exists($file)) {
             require_once $file;
         }
     }
 
+    /**
+     * Controllers must have this
+     */
     abstract public function index();
     
 }   

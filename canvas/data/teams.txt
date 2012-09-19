@@ -1,0 +1,44 @@
+#
+Team
+GP
+PT
+1
+Toluca
+8
+17
+2
+Tijuana
+7
+16
+3
+Club Leon
+8
+13
+4
+America
+8
+13
+5
+Monterrey
+8
+13
+6
+Cruz Azul
+8
+13
+7
+Morelia
+8
+12
+8
+UANL Tigres
+8
+12
+9
+Atlante
+7
+12
+10
+Santos Laguna
+8
+11

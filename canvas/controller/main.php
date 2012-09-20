@@ -9,6 +9,7 @@ class main_controller extends controller {
         $this->lib('html');
         $this->lib('data');
         $this->lib('team');
+        $this->lib('ext/fb_sdk/facebook');
         
         // We'll need the model
         $this->model('ligamx');
@@ -68,6 +69,7 @@ class main_controller extends controller {
             
         }
     }
+    
     /**
      * Returns a results table 
      * 

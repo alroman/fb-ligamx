@@ -8,6 +8,7 @@ class main_controller extends controller {
         global $config;
         
         // Load some libraries
+        $this->lib('utils');
         $this->lib('html');
         $this->lib('data');
         $this->lib('team');

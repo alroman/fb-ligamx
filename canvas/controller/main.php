@@ -5,14 +5,24 @@ class main_controller extends controller {
     public function __construct() {
         parent::__construct();
         
+        global $config;
+        
         // Load some libraries
         $this->lib('html');
         $this->lib('data');
         $this->lib('team');
-        $this->lib('ext/fb_sdk/facebook');
+        $this->lib('ext/fb_sdk/src/facebook');
         
         // We'll need the model
         $this->model('ligamx');
+        
+        // Load the facebook skd with our info
+        $this->fb = new Facebook(
+                array(
+                    'appId' => $config['fb_appid'],
+                    'secret' => $config['fb_secret'],
+                )
+            );
     }
 
     public function index() {
@@ -22,6 +32,10 @@ class main_controller extends controller {
             'results_table' => $this->_results_table(),
         );
         
+        // Get User ID
+        $user = $this->fb->getUser();
+        var_dump($user);
+
         $this->view('main', $data);
     }
     

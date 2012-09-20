@@ -7,6 +7,11 @@
     </head>
     <body>
         <div class="container canvas">
+            <div class="row" >
+                <div class="span12" >
+                <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
+                </div>
+            </div>
             <div class="row">
                 <div class="span6" >
                     <?php echo $top_ten->render() ?>

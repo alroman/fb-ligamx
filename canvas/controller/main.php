@@ -19,22 +19,20 @@ class main_controller extends controller {
         // Load the facebook skd with our info
         $this->fb = new Facebook(
                 array(
-                    'appId' => $config['fb_appid'],
-                    'secret' => $config['fb_secret'],
-                )
+                    'appId' => AppInfo::appID(),
+                    'secret' => AppInfo::appSecret(),                )
             );
     }
 
     public function index() {
+        // Get User ID
+        $user_id = $this->fb->getUser();
         
         $data = array(
+            'user_id' => $user_id,
             'top_ten' => $this->_top_ten(),
             'results_table' => $this->_results_table(),
         );
-        
-        // Get User ID
-        $user = $this->fb->getUser();
-        var_dump($user);
 
         $this->view('main', $data);
     }

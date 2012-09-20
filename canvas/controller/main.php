@@ -60,6 +60,14 @@ class main_controller extends controller {
         return $content;
     }
     
+    
+    private function res_table() {
+        $data = $this->ligamx->process_results_table();
+        
+        foreach($data as $d) {
+            
+        }
+    }
     /**
      * Returns a results table 
      * 

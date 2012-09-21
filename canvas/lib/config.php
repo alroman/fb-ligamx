@@ -2,9 +2,8 @@
 
 // Files needed for base functionality
 
-global $config;
-
 unset($config);
+global $config;
 
 $config = array(
     'foo' => 'bar',

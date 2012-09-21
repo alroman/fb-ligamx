@@ -26,10 +26,19 @@ class main_controller extends controller {
     }
 
     public function index() {
-        // Get User ID
-        $user_id = $this->fb->getUser();
+        // Get FB user info
+        
+        $facebook =& $this->fb;;
+        $user_id = $facebook->getUser();
+        try {
+            $basic = $facebook->api('/me');
+
+        } catch(FacebookApiException $e) {
+            $basic = array('name' => 'Sure, Not');
+        }
         
         $data = array(
+            'basic' => $basic,
             'user_id' => $user_id,
             'top_ten' => $this->_top_ten(),
             'results_table' => $this->_results_table(),

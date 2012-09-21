@@ -9,7 +9,12 @@
         <div class="container canvas">
             <div class="row" >
                 <div class="span12" >
-                <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
+                    <div class="media-grid" >
+                        <h5 class="tab">Welcome <small><?php echo he(idx($basic, 'name')); ?></small></h5>
+                        <a href="#">
+                            <img src="https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal" />
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="row">

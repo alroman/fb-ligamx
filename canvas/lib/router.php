@@ -3,12 +3,17 @@
 class router {
     
     static function route($url = null) {
+        global $config;
+        
         if(!$url) {
             $url = $_SERVER[ 'REQUEST_URI' ];
         }
 
         // Split site 
         list($site, $args) = explode('?', $url);
+        
+        // Get site URL
+        $config['www'] = 'http://' . $_SERVER['HTTP_HOST'] . $site;
         
         if(!empty($args)) {
             $params = explode('&', $args);

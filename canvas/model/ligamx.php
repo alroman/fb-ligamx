@@ -22,6 +22,7 @@ class ligamx_model extends model {
         
         $matches = array();
         
+        // Return match instances
         foreach($raw_data as $rd) {
             $matches[] = new team_match($rd);
         }
@@ -32,6 +33,7 @@ class ligamx_model extends model {
    
     /**
      * Blind data processing
+     * 
      * @param string $file
      * @param type $cols
      * @return type

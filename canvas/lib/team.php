@@ -21,7 +21,7 @@ class team_manager {
             'san_luis_potosi' => 7119,
             'puebla' => 7200,
             'queretaro' => 7121,
-            'leon' => 7000,
+            'leon' => 7198,
         );
 
     
@@ -50,6 +50,7 @@ class team_match {
             $this->teams->result = $this->_get_vs($row[0], $row[4]);
         }
         
+        $this->raw = $row;
     }
     
     private function _get_vs($date, $time) {
@@ -97,13 +98,17 @@ class team_entity {
         
         $this->data->shortname = $short;
         $this->data->fullname = $full;
+        $this->_id = $id;
         $this->data->img = $this->_get_img_path();
         
-        $this->_id = $id;
     }
     
     private function _get_img_path() {
-        return '/data/img/' . $this->_id . '.png';
+        global $config;
+        
+        $path = $config['www'] . '/data/img/';
+        
+        return $path . $this->_id . '.png';
     }
     
     static function load_team($name) {
@@ -112,6 +117,6 @@ class team_entity {
         $team = str_replace(' ', '_', $team);
         $team = trim($team);
         
-        return new team_entity(team_manager::$team_mappings[$team], $name, $team);
+        return new team_entity(team_manager::$team_mappings[$team], $team, $name);
     }
 }

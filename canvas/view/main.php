@@ -3,6 +3,7 @@
     <head>
         <title>Hello world</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
@@ -15,6 +16,12 @@
                             <img src="https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal" />
                         </a>
                     </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="span12" >
+                    <h5 class="tab">Teams</h5>
+                    <?php echo $res_table->render() ?>
                 </div>
             </div>
             <div class="row">

@@ -13,7 +13,7 @@ class html_tag {
         $this->content = '';
         
         if($content) {
-            $this->content = $content;
+            $this->add_content($content);
         }
         
         $this->attribs = $attribs;
@@ -67,9 +67,13 @@ class html_tag {
             }
         }
         
-        $out .= '>' . "\n";
-        $out .= $this->content . "\n";
-        $out .= '</' . $this->tag . '>' . "\n";
+        if($this->content == '') {
+            $out .= ' />' . "\n";
+        } else {
+            $out .= '>' . "\n";
+            $out .= $this->content . "\n";
+            $out .= '</' . $this->tag . '>' . "\n";
+        }
         
         return $out;
     }
@@ -104,7 +108,8 @@ class html_table extends html_tag {
     }
     
     public function render() {
-        $this->content = $this->thead . $this->tbody . $this->tfooter;
+        $tbody = new html_tag('tbody', $this->tbody);
+        $this->content = $tbody->render();
         return parent::render();
     }
 }

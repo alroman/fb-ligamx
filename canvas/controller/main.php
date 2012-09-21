@@ -26,10 +26,13 @@ class main_controller extends controller {
     }
 
     public function index() {
-        // Get FB user info
         
+        // Get FB user info
         $facebook =& $this->fb;;
+        
         $user_id = $facebook->getUser();
+        
+        // This won't work unless you're under FB environment
         try {
             $basic = $facebook->api('/me');
 
@@ -42,6 +45,7 @@ class main_controller extends controller {
             'user_id' => $user_id,
             'top_ten' => $this->_top_ten(),
             'results_table' => $this->_results_table(),
+            'res_table' => $this->res_table(),
         );
 
         $this->view('main', $data);
@@ -87,9 +91,58 @@ class main_controller extends controller {
     private function res_table() {
         $data = $this->ligamx->process_results_table();
         
-        foreach($data as $d) {
+        $table = new html_table();
+        
+        foreach($data as $match) {
+            // Create a row
+            $tr = new html_tag('tr');
+
+            // Column with status
+            $tr->add_content(new html_tag('td', $match->status));
             
+            // New column
+            $td = new html_tag('td');
+            // Add a row here
+            $div_row = new html_tag('div', '', array('class' => 'row'));
+            
+            if($match->status == 'final') {
+
+                $home_team = $this->render_team($match->teams->home, 'pull-right');
+                
+                $h2 = new html_tag('h2', $match->raw[2]);
+                $score = new html_tag('div', $h2, array('class' => 'span2 score-display'));
+                
+                $away_team = $this->render_team($match->teams->away);
+                
+                $div_row->add_content($home_team);
+                $div_row->add_content($score);
+                $div_row->add_content($away_team);
+//
+//            } else {
+//                
+            }
+            $tr->add_content($td->add_content($div_row));
+            
+            $table->add_content($tr);
         }
+        
+        return $table;
+    }
+    
+    function render_team($team, $class = '') {
+        // Title
+        $h3 = new html_tag('h4', $team->data->fullname, array('class' => $class));
+        // Picture
+        $img = new html_tag('img', '', array('src' => $team->data->img));
+        $a = new html_tag('a', $img, array('href' => '#'));
+        $p = new html_tag('p', $a);
+        $div = new html_tag('div', $p, array('class' => 'media-grid ' . $class));
+
+        return new html_tag('div', $h3->render() . $div->render(), array('class' => 'span3'));
+    }
+    
+    function render_button() {
+        
     }
     
     /**
